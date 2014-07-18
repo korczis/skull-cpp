@@ -126,8 +126,8 @@ namespace algs
     	{
     		auto node = mEnd->prev();
 
-    		node->next()->prev(node->prev());
-    		node->prev()->next(node->next());
+    		node->prev()->next(mEnd);
+			mEnd->prev(node->prev());
 
     		--mSize;
 
