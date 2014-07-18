@@ -1,5 +1,5 @@
 //
-//  UnionFindWeightedTree.cpp
+//  LinkedListTest.cpp
 //  algorithms
 //
 // The MIT License (MIT)
@@ -26,12 +26,12 @@
 
 #include "gtest/gtest.h"
 
-#include "UnionFindWeightedTree.h"
+#include "LinkedList.h"
 
 using namespace algs;
 
 typedef int ELEMENT_TYPE;
-typedef UnionFindWeightedTree<ELEMENT_TYPE> AlgClass;
+typedef LinkedList<ELEMENT_TYPE> AlgClass;
 
 namespace 
 {
@@ -39,7 +39,7 @@ namespace
 
 	inline AlgClass* Create()
 	{
-		return new AlgClass(SIZE);
+		return new AlgClass();
 	}
 
 	inline void SafeDelete(AlgClass* alg)
@@ -49,76 +49,42 @@ namespace
 	}
 };
 
-TEST(UnionFindWeightedTree, UnionFindWeightedTree) {
+TEST(LinkedList, LinkedList) {
 	auto alg = Create();
-
-	EXPECT_NE(alg, (AlgClass*)NULL);
-
-	for(auto i = 0; i < alg->size(); i++)
-	{
-		EXPECT_EQ((*alg)[i], i);
-	}
 
 	SafeDelete(alg);
 }
 
-TEST(UnionFindWeightedTree, connect) {
+TEST(LinkedList, push) {
 	auto alg = Create();
 
-	alg->connect(0, 1);
-	EXPECT_EQ((*alg)[0], 0);
+	alg->push(1);
+	alg->push(2);
+	alg->push(3);
+
+	SafeDelete(alg);
+}
+
+TEST(LinkedList, pop) {
+	auto alg = Create();
+
+	alg->push(1);
 	
-	SafeDelete(alg);
-}
+	auto res = alg->pop();
+	EXPECT_EQ(res, 1);
 
-TEST(UnionFindWeightedTree, isConnected) {
-	auto alg = Create();
+	alg->push(1);
+	alg->push(2);
+	alg->push(3);
 
-	auto res = alg->isConnected(0, 1);
-	EXPECT_EQ(res, false);
+	res = alg->pop();
+	EXPECT_EQ(res, 3);
 
-	alg->connect(0, 1);
+	res = alg->pop();
+	EXPECT_EQ(res, 2);
 
-	res = alg->isConnected(0, 1);
-	EXPECT_EQ(res, true);
-
-	res = alg->isConnected(2, 3);
-	EXPECT_EQ(res, false);
-
-	alg->connect(2, 3);
-
-	res = alg->isConnected(2, 3);
-	EXPECT_EQ(res, true);
-
-	res = alg->isConnected(0, 3);
-	EXPECT_EQ(res, false);
-
-	alg->connect(1, 2);
-
-	res = alg->isConnected(0, 3);
-	EXPECT_EQ(res, true);
-
-	SafeDelete(alg);
-}
-
-TEST(UnionFindWeightedTree, root) {
-	auto alg = Create();
-
-	for(auto i = 0; i < alg->size(); i++)
-	{
-		EXPECT_EQ((*alg)[i], i);	
-
-		ELEMENT_TYPE res = alg->root(i);
-		EXPECT_EQ(res, i);	
-	}
-	
-	SafeDelete(alg);
-}
-
-TEST(UnionFindWeightedTree, size) {
-	auto alg = Create();
-
-	EXPECT_EQ(alg->size(), SIZE);
+	res = alg->pop();
+	EXPECT_EQ(res, 1);
 
 	SafeDelete(alg);
 }

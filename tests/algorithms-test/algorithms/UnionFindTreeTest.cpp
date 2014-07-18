@@ -1,5 +1,5 @@
 //
-//  AlgoritmsTest.cpp
+//  UnionFindTreeTest.cpp
 //  algorithms
 //
 // The MIT License (MIT)

@@ -1,5 +1,5 @@
 //
-//  main.cpp
+//  LinkedList.cpp
 //  algorithms
 //
 // The MIT License (MIT)
@@ -24,17 +24,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-// core c++ includes
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
+#include "LinkedList.h"
 
-// boost includes
-// #include <boost/date_time/posix_time/posix_time.hpp>
-// #include <boost/thread.hpp>
+using namespace algs;
 
-int main(const int argc, const char *argv[])
-{
-    return 0;
-}

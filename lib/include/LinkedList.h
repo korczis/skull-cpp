@@ -1,5 +1,5 @@
 //
-//  main.cpp
+//  LinkedList.h
 //  algorithms
 //
 // The MIT License (MIT)
@@ -24,17 +24,77 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-// core c++ includes
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
+#ifndef ALGS_LINKED_LIST_H
+#define ALGS_LINKED_LIST_H
 
-// boost includes
-// #include <boost/date_time/posix_time/posix_time.hpp>
-// #include <boost/thread.hpp>
+#include <memory> // for shared_ptr
 
-int main(const int argc, const char *argv[])
+namespace algs
 {
-    return 0;
+	template<typename T>
+    class LinkedList
+    {
+    public:
+    	class Node
+    	{
+    	public:
+    		Node()
+    		{
+
+    		}
+
+    		Node(T value) : mValue(value)
+    		{
+
+    		}
+
+    		inline std::shared_ptr<Node> next()
+    		{
+    			return mNext;
+    		}
+
+			const inline std::shared_ptr<Node> next() const
+    		{
+    			return mNext;
+    		}
+
+    		inline std::shared_ptr<Node> next(std::shared_ptr<Node> next)
+    		{
+    			mNext = next;
+    			return mNext;
+    		}
+
+    		inline const T& value() const
+    		{
+    			return mValue;
+    		}
+
+    	private:
+    		T mValue;
+    		std::shared_ptr<Node> mNext;
+    	};
+
+    	LinkedList& push(const T& value)
+    	{
+    		auto node = std::shared_ptr<Node>(new Node(value));
+    		node->next(mRoot);
+    		mRoot = node;
+    	}
+
+    	T pop()
+    	{
+    		auto node = mRoot;
+    		
+    		mRoot = node->next();
+
+    		return node->value();
+    	}
+
+    	typedef std::shared_ptr<Node> NodePtr;
+
+    private:
+    	NodePtr mRoot;
+    };
 }
+
+#endif // ALGS_LINKED_LIST_H
