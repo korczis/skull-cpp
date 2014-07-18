@@ -31,8 +31,15 @@
 using namespace algs;
 
 // Tests factorial of 0.
-TEST(UnionFind, Engine) {
-	auto alg = new UnionFind();
-	EXPECT_NE(alg, (UnionFind*)NULL);
+TEST(UnionFind, UnionFind) {
+	auto alg = new UnionFind<int>(10);
+	EXPECT_NE(alg, (UnionFind<int>*)NULL);
+
+	for(auto i = 0; i < alg->size(); i++)
+	{
+		EXPECT_EQ((*alg)[i], i);
+	}
+
+	delete alg;
 }
 
