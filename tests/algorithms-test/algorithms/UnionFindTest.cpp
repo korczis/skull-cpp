@@ -30,20 +30,49 @@
 
 using namespace algs;
 
+typedef int ALG_TYPE;
+
+namespace 
+{
+	static const int SIZE = 10;
+
+	inline UnionFind<ALG_TYPE>* Create()
+	{
+		return new UnionFind<ALG_TYPE>(SIZE);
+	}
+
+	inline void SafeDelete(UnionFind<ALG_TYPE>* alg)
+	{
+		delete alg;
+		alg = 0;
+	}
+};
+
 TEST(UnionFind, UnionFind) {
-	auto alg = new UnionFind<int>(10);
-	EXPECT_NE(alg, (UnionFind<int>*)NULL);
+	auto alg = Create();
+
+	EXPECT_NE(alg, (UnionFind<ALG_TYPE>*)NULL);
 
 	for(auto i = 0; i < alg->size(); i++)
 	{
 		EXPECT_EQ((*alg)[i], i);
 	}
 
-	delete alg;
+	SafeDelete(alg);
 }
 
 TEST(UnionFind, connect) {
-	auto alg = new UnionFind<int>(10);
+	auto alg = Create();
+
+	alg->connect(0, 1);
+
+	EXPECT_EQ((*alg)[0], 1);
+
+	SafeDelete(alg);
+}
+
+TEST(UnionFind, isConnected) {
+	auto alg = Create();
 
 	auto res = alg->isConnected(0, 1);
 	EXPECT_EQ(res, false);
@@ -53,15 +82,13 @@ TEST(UnionFind, connect) {
 	res = alg->isConnected(0, 1);
 	EXPECT_EQ(res, true);
 
-	delete alg;
+	SafeDelete(alg);
 }
 
-TEST(UnionFind, union) {
-	auto alg = new UnionFind<int>(10);
+TEST(UnionFind, size) {
+	auto alg = Create();
 
-	alg->connect(0, 1);
+	EXPECT_EQ(alg->size(), SIZE);
 
-	EXPECT_EQ((*alg)[0], 1);
-
-	delete alg;
+	SafeDelete(alg);
 }
