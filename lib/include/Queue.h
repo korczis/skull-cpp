@@ -1,5 +1,5 @@
 //
-//  LinkedList.h
+//  Queue.h
 //  algorithms
 //
 // The MIT License (MIT)
@@ -24,15 +24,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef ALGS_LINKED_LIST_H
-#define ALGS_LINKED_LIST_H
+#ifndef ALGS_QUEUE_H
+#define ALGS_QUEUE_H
 
 #include <memory> // for shared_ptr
 
 namespace algs
 {
 	template<typename T>
-    class LinkedList
+    class Queue
     {
     public:
     	class Node
@@ -64,6 +64,22 @@ namespace algs
     			return mNext;
     		}
 
+    		inline std::shared_ptr<Node> prev()
+    		{
+    			return mPrev;
+    		}
+
+			const inline std::shared_ptr<Node> prev() const
+    		{
+    			return mPrev;
+    		}
+
+    		inline std::shared_ptr<Node> prev(std::shared_ptr<Node> prev)
+    		{
+    			mPrev = prev;
+    			return mPrev;
+    		}
+
     		inline const T& value() const
     		{
     			return mValue;
@@ -71,32 +87,39 @@ namespace algs
 
     	private:
     		T mValue;
+    		std::shared_ptr<Node> mPrev;
     		std::shared_ptr<Node> mNext;
     	};
 
-    	LinkedList& push(const T& value)
+    	typedef std::shared_ptr<Node> NodePtr;
+
+    	Queue& enqueue(const T& value)
     	{
     		auto node = std::shared_ptr<Node>(new Node(value));
-    		node->next(mRoot);
-    		mRoot = node;
+
+    		if(mBegin == mEnd)
+    		{
+    			mEnd = node;
+    		}
+
+    		node->next(mBegin);
+    		mBegin = node;
 
     		return *this;
     	}
 
-    	T pop()
+    	T dequeue()
     	{
-    		auto node = mRoot;
-    		
-    		mRoot = node->next();
+    		auto node = mEnd;
+    		mEnd->prev()->next(mEnd->prev());
 
     		return node->value();
     	}
 
-    	typedef std::shared_ptr<Node> NodePtr;
-
     private:
-    	NodePtr mRoot;
+    	NodePtr mBegin;
+    	NodePtr mEnd;
     };
 }
 
-#endif // ALGS_LINKED_LIST_H
+#endif // ALGS_QUEUE_H

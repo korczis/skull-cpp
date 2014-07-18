@@ -1,5 +1,5 @@
 //
-//  FixedStack.h
+//  QueueTest.cpp
 //  algorithms
 //
 // The MIT License (MIT)
@@ -24,48 +24,62 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef ALGS_LINKED_FIXED_STACK_H
-#define ALGS_LINKED_FIXED_STACK_H
+#include "gtest/gtest.h"
 
-#include <memory> // for shared_ptr
+#include "Queue.h"
 
-namespace algs
+using namespace algs;
+
+typedef int ELEMENT_TYPE;
+typedef Queue<ELEMENT_TYPE> AlgClass;
+
+namespace 
 {
-	template<typename T>
-    class FixedStack
-    {
-    public:
-        FixedStack(const T size) : mIndex(0)
-        {
-            mData = new T[size];
-        }
+	static const int SIZE = 10;
 
-        ~FixedStack()
-        {
-            delete[] mData;
-        }
+	inline AlgClass* Create()
+	{
+		return new AlgClass();
+	}
 
-        FixedStack& push(const T& value)
-        {
-            mData[mIndex++] = value;
+	inline void SafeDelete(AlgClass* alg)
+	{
+		delete alg;
+		alg = 0;
+	}
+};
 
-            return *this;
-        }
+TEST(Queue, Queue) {
+	auto alg = Create();
 
-        T pop()
-        {
-            return mData[--mIndex];
-        }
-
-        const T& size() const
-        {
-            return mIndex;
-        }
-
-    private:
-        T* mData;
-        T mIndex;
-    };
+	SafeDelete(alg);
 }
 
-#endif // ALGS_LINKED_FIXED_STACK_H
+TEST(Queue, dequeue) {
+	auto alg = Create();
+
+	alg->enqueue(1);
+	alg->enqueue(2);
+	alg->enqueue(3);
+
+	auto res = alg->dequeue();
+	EXPECT_EQ(res, 1);
+
+	res = alg->dequeue();
+	EXPECT_EQ(res, 2);
+
+	res = alg->dequeue();
+	EXPECT_EQ(res, 3);
+	
+	SafeDelete(alg);
+}
+
+TEST(Queue, enqueue) {
+	auto alg = Create();
+
+	alg->enqueue(1);
+	alg->enqueue(2);
+	alg->enqueue(3);
+	
+	SafeDelete(alg);
+}

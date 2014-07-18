@@ -1,5 +1,5 @@
 //
-//  FixedStack.h
+//  Queue.cpp
 //  algorithms
 //
 // The MIT License (MIT)
@@ -24,48 +24,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef ALGS_LINKED_FIXED_STACK_H
-#define ALGS_LINKED_FIXED_STACK_H
+#include "Queue.h"
 
-#include <memory> // for shared_ptr
+using namespace algs;
 
-namespace algs
-{
-	template<typename T>
-    class FixedStack
-    {
-    public:
-        FixedStack(const T size) : mIndex(0)
-        {
-            mData = new T[size];
-        }
-
-        ~FixedStack()
-        {
-            delete[] mData;
-        }
-
-        FixedStack& push(const T& value)
-        {
-            mData[mIndex++] = value;
-
-            return *this;
-        }
-
-        T pop()
-        {
-            return mData[--mIndex];
-        }
-
-        const T& size() const
-        {
-            return mIndex;
-        }
-
-    private:
-        T* mData;
-        T mIndex;
-    };
-}
-
-#endif // ALGS_LINKED_FIXED_STACK_H
