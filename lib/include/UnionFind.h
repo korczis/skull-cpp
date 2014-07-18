@@ -32,7 +32,7 @@ namespace algs
 			return mData[index];
 		}
 
-		inline UnionFind& Union(const T& p, const T& q)
+		inline UnionFind& connect(const T& p, const T& q)
 		{
 			auto pid = mData[p];
 			auto qid = mData[q];
@@ -48,7 +48,7 @@ namespace algs
 			return *this;
 		}
 
-		inline bool IsConnected(const T& p, const T& q) const
+		inline bool isConnected(const T& p, const T& q) const
 		{
 			return mData[p] == mData[q];
 		}

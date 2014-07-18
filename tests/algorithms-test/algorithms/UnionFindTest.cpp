@@ -42,24 +42,24 @@ TEST(UnionFind, UnionFind) {
 	delete alg;
 }
 
-TEST(UnionFind, IsConnected) {
+TEST(UnionFind, connect) {
 	auto alg = new UnionFind<int>(10);
 
-	auto res = alg->IsConnected(0, 1);
+	auto res = alg->isConnected(0, 1);
 	EXPECT_EQ(res, false);
 
-	alg->Union(0, 1);
+	alg->connect(0, 1);
 
-	res = alg->IsConnected(0, 1);
+	res = alg->isConnected(0, 1);
 	EXPECT_EQ(res, true);
 
 	delete alg;
 }
 
-TEST(UnionFind, Union) {
+TEST(UnionFind, union) {
 	auto alg = new UnionFind<int>(10);
 
-	alg->Union(0, 1);
+	alg->connect(0, 1);
 
 	EXPECT_EQ((*alg)[0], 1);
 
