@@ -22,11 +22,6 @@ namespace algs
 			delete[] mData; mData = 0;
 		}
 
-		inline const T& size() const
-		{
-			return mSize;
-		}
-
 		const T& operator[](T index) const
 		{
 			return mData[index];
@@ -51,6 +46,11 @@ namespace algs
 		inline bool isConnected(const T& p, const T& q) const
 		{
 			return mData[p] == mData[q];
+		}
+
+		inline const T& size() const
+		{
+			return mSize;
 		}
 
 	private:

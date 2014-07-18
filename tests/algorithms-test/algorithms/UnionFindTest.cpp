@@ -30,18 +30,18 @@
 
 using namespace algs;
 
-typedef int ALG_TYPE;
+typedef int ELEMENT_TYPE;
 
 namespace 
 {
 	static const int SIZE = 10;
 
-	inline UnionFind<ALG_TYPE>* Create()
+	inline UnionFind<ELEMENT_TYPE>* Create()
 	{
-		return new UnionFind<ALG_TYPE>(SIZE);
+		return new UnionFind<ELEMENT_TYPE>(SIZE);
 	}
 
-	inline void SafeDelete(UnionFind<ALG_TYPE>* alg)
+	inline void SafeDelete(UnionFind<ELEMENT_TYPE>* alg)
 	{
 		delete alg;
 		alg = 0;
@@ -51,7 +51,7 @@ namespace
 TEST(UnionFind, UnionFind) {
 	auto alg = Create();
 
-	EXPECT_NE(alg, (UnionFind<ALG_TYPE>*)NULL);
+	EXPECT_NE(alg, (UnionFind<ELEMENT_TYPE>*)NULL);
 
 	for(auto i = 0; i < alg->size(); i++)
 	{
