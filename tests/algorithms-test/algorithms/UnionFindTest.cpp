@@ -83,6 +83,22 @@ TEST(UnionFind, isConnected) {
 	res = alg->isConnected(0, 1);
 	EXPECT_EQ(res, true);
 
+	res = alg->isConnected(2, 3);
+	EXPECT_EQ(res, false);
+
+	alg->connect(2, 3);
+
+	res = alg->isConnected(2, 3);
+	EXPECT_EQ(res, true);
+
+	res = alg->isConnected(0, 3);
+	EXPECT_EQ(res, false);
+
+	alg->connect(1, 2);
+
+	res = alg->isConnected(0, 3);
+	EXPECT_EQ(res, true);
+
 	SafeDelete(alg);
 }
 

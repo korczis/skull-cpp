@@ -32,14 +32,14 @@ namespace algs
 			auto pid = root(p);
 			auto qid = root(q);
 
-			mData[pid] = mData[qid];
+			mData[pid] = qid;
 
 			return *this;
 		}
 
 		inline bool isConnected(const T& p, const T& q) const
 		{
-			return mData[p] == mData[q];
+			return root(p) == root(q);
 		}
 
 		inline const T& root(const T& p) const
