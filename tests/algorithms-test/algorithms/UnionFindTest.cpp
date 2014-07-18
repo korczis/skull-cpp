@@ -30,7 +30,6 @@
 
 using namespace algs;
 
-// Tests factorial of 0.
 TEST(UnionFind, UnionFind) {
 	auto alg = new UnionFind<int>(10);
 	EXPECT_NE(alg, (UnionFind<int>*)NULL);
@@ -43,3 +42,26 @@ TEST(UnionFind, UnionFind) {
 	delete alg;
 }
 
+TEST(UnionFind, IsConnected) {
+	auto alg = new UnionFind<int>(10);
+
+	auto res = alg->IsConnected(0, 1);
+	EXPECT_EQ(res, false);
+
+	alg->Union(0, 1);
+
+	res = alg->IsConnected(0, 1);
+	EXPECT_EQ(res, true);
+
+	delete alg;
+}
+
+TEST(UnionFind, Union) {
+	auto alg = new UnionFind<int>(10);
+
+	alg->Union(0, 1);
+
+	EXPECT_EQ((*alg)[0], 1);
+
+	delete alg;
+}
