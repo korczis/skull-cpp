@@ -83,3 +83,26 @@ TEST(Queue, enqueue) {
 	
 	SafeDelete(alg);
 }
+
+TEST(Queue, size) {
+	auto alg = Create();
+
+	alg->enqueue(1);
+	EXPECT_EQ(alg->size(), 1);
+
+	alg->enqueue(2);
+	EXPECT_EQ(alg->size(), 2);
+
+	alg->enqueue(3);
+	EXPECT_EQ(alg->size(), 3);
+	
+	alg->dequeue();
+	EXPECT_EQ(alg->size(), 2);
+
+	alg->dequeue();
+	EXPECT_EQ(alg->size(), 1);
+
+	alg->dequeue();
+	EXPECT_EQ(alg->size(), 0);
+	SafeDelete(alg);
+}

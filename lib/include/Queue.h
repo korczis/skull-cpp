@@ -93,32 +93,56 @@ namespace algs
 
     	typedef std::shared_ptr<Node> NodePtr;
 
+    	Queue() : mSize(0)
+    	{
+    		mBegin = std::shared_ptr<Node>(new Node());
+    		mEnd = std::shared_ptr<Node>(new Node());
+
+    		mBegin->next(mEnd);
+    		mEnd->prev(mBegin);
+    	}
+
+    	~Queue()
+    	{
+
+    	}
+
     	Queue& enqueue(const T& value)
     	{
     		auto node = std::shared_ptr<Node>(new Node(value));
 
-    		if(mBegin == mEnd)
-    		{
-    			mEnd = node;
-    		}
+    		node->prev(mBegin);
+    		node->next(mBegin->next());
 
-    		node->next(mBegin);
-    		mBegin = node;
+    		mBegin->next()->prev(node);
+    		mBegin->next(node);
+
+    		mSize++;
 
     		return *this;
     	}
 
     	T dequeue()
     	{
-    		auto node = mEnd;
-    		mEnd->prev()->next(mEnd->prev());
+    		auto node = mEnd->prev();
+
+    		node->next()->prev(node->prev());
+    		node->prev()->next(node->next());
+
+    		--mSize;
 
     		return node->value();
+    	}
+
+    	const T& size()
+    	{
+    		return mSize;
     	}
 
     private:
     	NodePtr mBegin;
     	NodePtr mEnd;
+    	T mSize;
     };
 }
 
