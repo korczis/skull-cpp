@@ -26,12 +26,12 @@
 
 #include "gtest/gtest.h"
 
-#include "UnionFind.h"
+#include "UnionFindTree.h"
 
 using namespace algs;
 
 typedef int ELEMENT_TYPE;
-typedef UnionFind<ELEMENT_TYPE> AlgClass;
+typedef UnionFindTree<ELEMENT_TYPE> AlgClass;
 
 namespace 
 {
@@ -49,7 +49,7 @@ namespace
 	}
 };
 
-TEST(UnionFind, UnionFind) {
+TEST(UnionFindTree, UnionFindTree) {
 	auto alg = Create();
 
 	EXPECT_NE(alg, (AlgClass*)NULL);
@@ -62,7 +62,7 @@ TEST(UnionFind, UnionFind) {
 	SafeDelete(alg);
 }
 
-TEST(UnionFind, connect) {
+TEST(UnionFindTree, connect) {
 	auto alg = Create();
 
 	alg->connect(0, 1);
@@ -72,7 +72,7 @@ TEST(UnionFind, connect) {
 	SafeDelete(alg);
 }
 
-TEST(UnionFind, isConnected) {
+TEST(UnionFindTree, isConnected) {
 	auto alg = Create();
 
 	auto res = alg->isConnected(0, 1);
@@ -86,7 +86,21 @@ TEST(UnionFind, isConnected) {
 	SafeDelete(alg);
 }
 
-TEST(UnionFind, size) {
+TEST(UnionFindTree, root) {
+	auto alg = Create();
+
+	for(auto i = 0; i < alg->size(); i++)
+	{
+		EXPECT_EQ((*alg)[i], i);	
+
+		ELEMENT_TYPE res = alg->root(i);
+		EXPECT_EQ(res, i);	
+	}
+	
+	SafeDelete(alg);
+}
+
+TEST(UnionFindTree, size) {
 	auto alg = Create();
 
 	EXPECT_EQ(alg->size(), SIZE);

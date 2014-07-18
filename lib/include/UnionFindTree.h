@@ -1,13 +1,13 @@
-#ifndef ALGS_UNION_FIND_H
-#define ALGS_UNION_FIND_H
+#ifndef ALGS_UNION_FIND_TREE_H
+#define ALGS_UNION_FIND_TREE_H
 
 namespace algs
 {
 	template<typename T>
-    class UnionFind
+    class UnionFindTree
     {
     public:
-		UnionFind(const T& size) : mSize(size)
+		UnionFindTree(const T& size) : mSize(size)
 		{
 			mData = new T[size];
 
@@ -17,7 +17,7 @@ namespace algs
 			}
 		}
 
-		~UnionFind()
+		~UnionFindTree()
 		{
 			delete[] mData; mData = 0;
 		}
@@ -27,18 +27,12 @@ namespace algs
 			return mData[index];
 		}
 
-		inline UnionFind& connect(const T& p, const T& q)
+		inline UnionFindTree& connect(const T& p, const T& q)
 		{
-			auto pid = mData[p];
-			auto qid = mData[q];
+			auto pid = root(p);
+			auto qid = root(q);
 
-			for(auto i = 0; i < mSize; i++)
-			{
-				if(mData[i] == pid)
-				{
-					mData[i] = qid;
-				}
-			}
+			mData[pid] = mData[qid];
 
 			return *this;
 		}
@@ -46,6 +40,17 @@ namespace algs
 		inline bool isConnected(const T& p, const T& q) const
 		{
 			return mData[p] == mData[q];
+		}
+
+		inline const T& root(const T& p) const
+		{
+			auto res = mData[p];
+			while(res != mData[res])
+			{
+				res = mData[res];
+			}
+
+			return res;
 		}
 
 		inline const T& size() const
@@ -59,4 +64,4 @@ namespace algs
     };
 }
 
-#endif // ALGS_UNION_FIND_H
+#endif // ALGS_UNION_FIND_TREE_H
