@@ -1,10 +1,16 @@
+.phony:
+	all
+
 all: 
-	mkdir -p build && cd build && cmake .. && make && cd ../
+	make bin
+	make build
+	make HelloWorld
 
-clean:
-	rm -rf build/CMakeFiles build/CMakeCache.txt build/cmake_install.cmake build/Makefile build/apps build/bin build/lib build/tests
+bin:
+	mkdir -p bin
 
-test:
-	echo "Testing"
+build:
+	echo "Building ..."
 
-	cd build && ls -la apps bin lib && cd .. / && echo "" && build/bin/algorithms-test
+HelloWorld: src/HelloWorld/Main.cpp
+	g++ -o bin/HelloWorld src/HelloWorld/Main.cpp
