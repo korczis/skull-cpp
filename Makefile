@@ -18,5 +18,5 @@ build: dirs
 	echo "Building ..."
 	cd ./build &&  cmake ../ && make
 
-test:
-	./bin/HelloWorld
+test: build 
+	./build/bin/HelloWorld
