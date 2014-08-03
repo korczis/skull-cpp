@@ -1,3 +1,5 @@
 # skull-cpp
 
-Skull for c++
+Learning materials for C++ language
+
+See [skull](https://github.com/korczis/skull)
