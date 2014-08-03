@@ -2,18 +2,24 @@
 	all
 
 all: 
-	make bin
+	make dirs
 	make build
-	make HelloWorld
 
-bin:
+clean:
+	rm -rf bin
+	rm -rf build
+
+dirs:
 	mkdir -p bin
+	mkdir -p build
+	mkdir -p lib
 
 build:
 	echo "Building ..."
+	cd build
+	cmake ../
+	make
+	cd ..
 
 test:
 	echo "This is test ..."
-	
-HelloWorld: src/HelloWorld/Main.cpp
-	g++ -o bin/HelloWorld src/HelloWorld/Main.cpp
