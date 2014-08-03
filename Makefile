@@ -14,12 +14,9 @@ dirs:
 	mkdir -p build
 	mkdir -p lib
 
-build:
+build: dirs
 	echo "Building ..."
-	cd build
-	cmake ../
-	make
-	cd ..
+	cd ./build &&  cmake ../ && make
 
 test:
-	echo "This is test ..."
+	./bin/HelloWorld
